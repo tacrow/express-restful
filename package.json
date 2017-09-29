@@ -1,0 +1,38 @@
+{
+  "name": "express-restful",
+  "version": "1.0.0",
+  "description": "express, restful",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "script": "browserify src/server.js -t babelify -o bundle/js/server.js",
+    "server": "babel-node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tacrow/express-restful.git"
+  },
+  "keywords": [
+    "express",
+    "restful"
+  ],
+  "author": "tacrow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tacrow/express-restful/issues"
+  },
+  "homepage": "https://github.com/tacrow/express-restful#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.0",
+    "mongoose": "^4.11.13"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "watch": "^1.0.2"
+  }
+}
