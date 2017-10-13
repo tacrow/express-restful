@@ -122561,12 +122561,39 @@ router.route('/todos').post(function (req, res) {
   // save
   todo.save(function (err) {
     if (err) res.send(err);
-    res.json(todo);
+    res.json({ message: 'todo created.' });
   });
 }).get(function (req, res) {
   _todo2.default.find(function (err, todos) {
     if (err) res.send(err);
     res.json(todos);
+  });
+});
+
+/*
+ * todo (POST http://localhost:3000/api/todos/:todo_id)
+ */
+router.route('/todos/:todo_id').get(function (req, res) {
+  // match id
+  _todo2.default.findById(req.params.todo_id, function (err, todo) {
+    if (err) res.send(err);
+    res.json(todo);
+  });
+}).put(function (req, res) {
+  _todo2.default.findById(req.params.todo_id, function (err, todo) {
+    if (err) res.send(err);
+    todo.todo = req.body.todo;
+    todo.save(function (err) {
+      if (err) res.send(err);
+      res.json({ message: 'Todo updateed.' });
+    });
+  });
+}).delete(function (req, res) {
+  _todo2.default.remove({
+    _id: req.params.todo_id
+  }, function (err, todo) {
+    if (err) res.send(err);
+    res.json({ message: 'Successfully deleted.' });
   });
 });
 

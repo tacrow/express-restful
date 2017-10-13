@@ -1,9 +1,9 @@
 'use strict';
 
 import express from 'express';
-import bodyParser from 'body-parser';
-
 const app = express();
+
+import bodyParser from 'body-parser';
 
 /*
  * access db
@@ -54,7 +54,7 @@ router.route('/todos')
     todo.save((err) => {
       if(err)
         res.send(err);
-      res.json(todo);
+      res.json({ message: 'todo created.' });
     });
   })
   .get((req, res) => {
@@ -63,6 +63,40 @@ router.route('/todos')
         res.send(err);
       res.json(todos);
     })
+  });
+
+/*
+ * todo (POST http://localhost:3000/api/todos/:todo_id)
+ */
+router.route('/todos/:todo_id')
+  .get((req, res) => {
+    // match id
+    Todo.findById(req.params.todo_id, (err, todo) => {
+      if(err)
+        res.send(err);
+      res.json(todo);
+    });
+  })
+  .put((req, res) => {
+    Todo.findById(req.params.todo_id, (err, todo) => {
+      if(err)
+        res.send(err);
+      todo.todo = req.body.todo;
+      todo.save((err) => {
+        if(err)
+          res.send(err);
+        res.json({ message: 'Todo updateed.' });
+      });
+    });
+  })
+  .delete((req, res) => {
+    Todo.remove({
+      _id: req.params.todo_id
+    }, (err, todo) => {
+      if(err)
+        res.send(err);
+      res.json({ message: 'Successfully deleted.' });
+    });
   });
 
 /*
